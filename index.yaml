@@ -1,0 +1,49 @@
+apiVersion: v1
+entries:
+  bind9:
+  - apiVersion: v2
+    appVersion: "9.18"
+    created: "2024-04-14T22:02:37.640498704Z"
+    description: A Helm chart for Bind9 using the official ISC docker image
+    digest: d227f877092b54b60ecbea47c745b2b7e6a60f312713e9ae84721f1744041a4b
+    name: bind9
+    type: application
+    urls:
+    - https://github.com/Niich/helm-charts/releases/download/bind9-0.3.1/bind9-0.3.1.tgz
+    version: 0.3.1
+  step-certificates:
+  - apiVersion: v1
+    appVersion: 0.26.0
+    created: "2024-04-14T22:02:37.813410048Z"
+    description: An online certificate authority and related tools for secure automated
+      certificate management, so you can use TLS everywhere.
+    digest: 97002249b510588ff9b528939a00573159c5dfcedc2746e0eee50ecd2dafedc4
+    home: https://smallstep.com
+    icon: https://raw.githubusercontent.com/smallstep/certificates/master/icon.png
+    keywords:
+    - acme
+    - authority
+    - ca
+    - certificate
+    - certificates
+    - certificate-authority
+    - kubernetes
+    - pki
+    - security
+    - security-tools
+    - smallstep
+    - ssh
+    - step
+    - step-ca
+    - tls
+    - x509
+    maintainers:
+    - email: mariano@smallstep.com
+      name: Mariano Cano
+    name: step-certificates
+    sources:
+    - https://github.com/smallstep/certificates
+    urls:
+    - https://github.com/Niich/helm-charts/releases/download/step-certificates-1.26.0/step-certificates-1.26.0.tgz
+    version: 1.26.0
+generated: "2024-04-14T22:02:37.813420318Z"
