@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bind9.fullname" . }}
+  labels:
+    {{- include "bind9.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "bind9.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "bind9.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bind9.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh","-c"]
+          args: 
+            - "cp /named_config/* /working/ && /usr/sbin/named -g -c /etc/named/named.conf -u bind"
+          ports:
+            - name: dns-udp
+              containerPort: 5053
+              protocol: UDP
+            - name: dns-tcp
+              containerPort: 5053
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 5053
+          readinessProbe:
+            tcpSocket:
+              port: 5053
+          volumeMounts:
+          - name: {{ .Release.Name }}-named-conf
+            mountPath: '/etc/named/'
+            readOnly: true
+          - mountPath: /working
+            name: cache-volume
+          {{ if .Values.mount_configuration_from_secret.enabled -}}
+          - name: {{ .Release.Name }}-user-configuration
+            mountPath: '/named_config/'
+            readOnly: false
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      - name: cache-volume
+        emptyDir:
+          sizeLimit: 100Mi
+      - name: {{ .Release.Name }}-named-conf
+        secret:
+          secretName: {{ .Release.Name }}-named-conf
+      {{ if .Values.mount_configuration_from_secret.enabled -}}
+      - name: {{ .Release.Name }}-user-configuration
+        secret:
+          secretName: {{ .Values.mount_configuration_from_secret.secretName }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

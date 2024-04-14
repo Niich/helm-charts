@@ -1,0 +1,120 @@
+# Default values for bind9.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+# To use this chart to setup a resolver using bind9, enable the resolver mode
+# Possible values:
+# 'resolver': set up a resolver
+# 'authoritative': set up an authoritative nameserver
+#
+chartMode: resolver
+
+# When using this chart to set up a resolver, set the chartMode to 'resolver'
+# and add forwarders and options as you see fit
+resolver:
+  forwarders:
+    - '1.1.1.1'
+    - '8.8.8.8'
+    # - '176.9.93.198'
+  dnssec_validation: true
+  ipv6_enabled: true
+  querylog: false
+
+authoritative:
+  dnssec_validation: true
+  ipv6_enabled: true
+  querylog: false
+
+#
+# To enhance the basic configuration of this chart, you can create a secret
+# containing one key called 'named.conf.local' containing your
+# bind9 resolver or nameserver configuration
+# ATTENTION: This must not contain an `options` block, only zone settings
+#            or similar are allowed
+#
+# Example:
+# ```
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: my-secret
+# stringData:
+#   named.conf.local: |
+#     zone "my.corporate-domain.example.org" {
+#         type static-stub;
+#         server-addresses {
+#                 192.168.1.1;
+#                 192.168.1.2;
+#         };
+#     };
+# ```
+#
+mount_configuration_from_secret:
+  enabled: false
+  secretName: dns-zone-base
+
+image:
+  repository: internetsystemsconsortium/bind9
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: 
+  fsGroup: 106
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: LoadBalancer
+  port: 53
+  # nodePort is only used if type is NodePort
+  nodePort: 30053
+  annotations: {}
+
+resources: 
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 300m
+    memory: 500Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
