@@ -1,5 +1,5 @@
 
-Thanks for installing Step CA.
+Thanks for installing Step CA using the niich repo.
 
 1. Get the PKI and Provisioner secrets running these commands:
    kubectl get -n {{ .Release.Namespace }} -o jsonpath='{.data.password}' secret/{{ include "step-certificates.fullname" . }}-ca-password | base64 --decode

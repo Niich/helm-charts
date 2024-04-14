@@ -1,3 +1,5 @@
+Thanks for installing Bind9 using the niich repo.
+
 1. You can issue DNS requests using TCP or UDP using the following IP addresses:
 {{- if contains "NodePort" .Values.service.type }}
   export NODE_PORT_UDP=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "bind9.fullname" . }}-dns-udp)
