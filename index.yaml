@@ -11,6 +11,29 @@ entries:
     urls:
     - https://github.com/Niich/helm-charts/releases/download/bind9-0.3.1/bind9-0.3.1.tgz
     version: 0.3.1
+  cluster-template:
+  - annotations:
+      catalog.cattle.io/namespace: fleet-default
+      catalog.cattle.io/type: cluster-template
+    apiVersion: v1
+    created: "2024-04-15T04:12:55.258564477Z"
+    description: Cluster template for rke2
+    digest: 32b1cde45d8330441fd5ad4050a2b44670e8836227b86078d51ff42b41ff71f8
+    name: cluster-template
+    urls:
+    - https://github.com/Niich/helm-charts/releases/download/cluster-template-0.0.1/cluster-template-0.0.1.tgz
+    version: 0.0.1
+  fleet-cluster:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-04-15T04:12:55.3959739Z"
+    description: Create configmaps that fleet uses as values for charts
+    digest: 5ac718f5b512459fa59463a88381897ee693009d5f4b7ea6b1458a93d8627c58
+    name: fleet-cluster
+    type: application
+    urls:
+    - https://github.com/Niich/helm-charts/releases/download/fleet-cluster-0.1.0/fleet-cluster-0.1.0.tgz
+    version: 0.1.0
   step-certificates:
   - apiVersion: v1
     appVersion: 0.26.0
@@ -46,4 +69,4 @@ entries:
     urls:
     - https://github.com/Niich/helm-charts/releases/download/step-certificates-1.26.0/step-certificates-1.26.0.tgz
     version: 1.26.0
-generated: "2024-04-14T22:02:37.813420318Z"
+generated: "2024-04-15T04:12:55.537483405Z"
