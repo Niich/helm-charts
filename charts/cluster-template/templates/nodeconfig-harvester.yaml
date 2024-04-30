@@ -17,7 +17,7 @@ networkName: {{ $nodepool.networkName }}
 imageName: {{ $nodepool.imageName }}
 vmNamespace: {{ $nodepool.vmNamespace }}
 sshUser: {{ $nodepool.sshUser }}
-userData: {{ $nodepool.userdata | quote }}
+userData: {{ $nodepool.userData | quote }}
 ---
 {{- end }}
 {{ $nodepool := .Values.nodepool }}
@@ -39,6 +39,6 @@ networkName: {{ $nodepool.networkName }}
 imageName: {{ $nodepool.imageName }}
 vmNamespace: {{ $nodepool.vmNamespace }}
 sshUser: {{ $nodepool.sshUser }}
-userData: {{ $nodepool.userdata | quote }}
+userData: {{ $nodepool.userData | quote }}
 {{- end }}
 {{- end }}
