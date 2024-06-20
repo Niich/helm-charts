@@ -42,3 +42,4 @@ jobs:
             oci_username: niich
             oci_password: ${{ secrets.ACTIONS_TOKEN }}
             github_token: ${{ secrets.ACTIONS_TOKEN }}
+            skip_existing: false
