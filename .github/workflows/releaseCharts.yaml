@@ -37,7 +37,7 @@ jobs:
       
       - name: Helm OCI Charts Releaser
         id: oci_release
-        uses: bitdeps/helm-oci-charts-releaser@v0.1.2
+        uses: niich/helm-oci-charts-releaser@v0.1.3
         with:
             oci_registry: ghcr.io/niich
             oci_username: niich
