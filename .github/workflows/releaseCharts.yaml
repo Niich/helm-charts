@@ -59,4 +59,4 @@ jobs:
           webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
           color: "#754697"
           username: "GitHub Bot"
-          message: "New charts have been pushed.\n\n${{join(steps.oci_release.outputs.*, '\n')}}"
+          message: "New charts have been pushed.\n\n${{join(steps.oci_release.*, '\n')}}"
