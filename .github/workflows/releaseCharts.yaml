@@ -28,9 +28,17 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.REPO_TOKEN }}"
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+      # - name: Run classic chart-releaser
+      #   uses: helm/chart-releaser-action@v1.6.0
+      #   with:
+      #     skip_existing: true
+      #   env:
+      #     CR_TOKEN: "${{ secrets.REPO_TOKEN }}"
+      
+      - name: Run OCI chart-releaser
+        uses: bitdeps/helm-oci-charts-releaser@v0.1.0
         with:
-          skip_existing: true
-        env:
-          CR_TOKEN: "${{ secrets.REPO_TOKEN }}"
+            oci_registry: ghcr.io/niich
+            oci_username: niich
+            oci_password: ${{ secrets.REPO_TOKEN }}
+            github_token: ${{ secrets.REPO_TOKEN }}
