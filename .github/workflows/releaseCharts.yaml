@@ -51,5 +51,5 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
         with:
-          args: "New charts updated:\n{{join(steps.oci_release.outputs.released_charts, '\n')}}"
+          args: "New charts updated:\n${{join(steps.oci_release.outputs.released_charts, '\n')}}"
       
