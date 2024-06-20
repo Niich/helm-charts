@@ -35,8 +35,8 @@ jobs:
       #   env:
       #     CR_TOKEN: "${{ secrets.ACTIONS_TOKEN }}"
       
-      - name: Run OCI chart-releaser
-        uses: bitdeps/helm-oci-charts-releaser@v0.1.0
+      - name: Helm OCI Charts Releaser
+        uses: bitdeps/helm-oci-charts-releaser@v0.1.2
         with:
             oci_registry: ghcr.io/niich
             oci_username: niich
