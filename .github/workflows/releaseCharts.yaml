@@ -45,10 +45,18 @@ jobs:
             github_token: ${{ secrets.ACTIONS_TOKEN }}
             tag_name_pattern: "{chartName}-chart"
 
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
-        with:
-          args: "Charts updated:\n${{join(steps.oci_release.outputs.released_charts, '\n')}}\n\nCurrent Versions:\n${{join(steps.oci_release.outputs.*, '\n')}}"
+      # - name: Discord notification
+      #   env:
+      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      #   uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
+      #   with:
+      #     args: "Charts updated:\n${{join(steps.oci_release.outputs.released_charts, '\n')}}\n\nCurrent Versions:\n${{join(steps.oci_release.outputs.*, '\n')}}"
       
+      - name: send message
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          color: "#754697"
+          username: "GitHub Bot"
+          message: "New charts have been pushed.\n\n${{join(steps.oci_release.outputs.*, '\n')}}"
