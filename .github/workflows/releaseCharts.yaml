@@ -36,10 +36,20 @@ jobs:
       #     CR_TOKEN: "${{ secrets.ACTIONS_TOKEN }}"
       
       - name: Helm OCI Charts Releaser
+        id: oci_release
         uses: bitdeps/helm-oci-charts-releaser@v0.1.2
         with:
             oci_registry: ghcr.io/niich
             oci_username: niich
             oci_password: ${{ secrets.ACTIONS_TOKEN }}
             github_token: ${{ secrets.ACTIONS_TOKEN }}
+            tag_name_pattern: "{chartName}-chart"
             skip_existing: false
+
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
+        with:
+          args: "New charts updated:\n{{join(steps.oci_release.outputs.released_charts, '\n')}}"
+      
