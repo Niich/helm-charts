@@ -10,6 +10,6 @@ apps:
   external-dns: 
     values:
       mount_configuration_from_secret:
-        enabled: false
+        enabled: true
         secretName: dns-zone-base
         anotherSecretName: dns-zone-base
