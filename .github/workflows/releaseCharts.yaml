@@ -57,6 +57,8 @@ jobs:
           owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
           repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
           pages_branch="gh-pages"
+          echo "$owner"
+          echo "$repo"
           cr index -o "$owner" -r "$repo" --push --pages-branch "$pages_branch" --token '${{ secrets.GITHUB_TOKEN }}'
           
       - name: send message
