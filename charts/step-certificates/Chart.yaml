@@ -24,6 +24,8 @@ home: https://smallstep.com
 icon: https://raw.githubusercontent.com/smallstep/certificates/master/icon.png
 sources:
  - https://github.com/smallstep/certificates
+ - https://github.com/niich/helm-charts
 maintainers:
  - name: Mariano Cano
    email: mariano@smallstep.com
+  
