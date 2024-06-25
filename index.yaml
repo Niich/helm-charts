@@ -26,6 +26,18 @@ entries:
   fleet-cluster:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-06-25T16:34:06.815437284Z"
+    description: Create configmaps that fleet uses as values for charts
+    digest: 5563fcc0ff5200f9553226b7f056b45855182751a18ec1ff8115d338ddbdce25
+    name: fleet-cluster
+    sources:
+    - https://github.com/niich/helm-charts
+    type: application
+    urls:
+    - https://github.com/Niich/helm-charts/releases/download/fleet-cluster-0.1.4/fleet-cluster-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-04-15T04:12:55.3959739Z"
     description: Create configmaps that fleet uses as values for charts
     digest: 5ac718f5b512459fa59463a88381897ee693009d5f4b7ea6b1458a93d8627c58
@@ -69,4 +81,4 @@ entries:
     urls:
     - https://github.com/Niich/helm-charts/releases/download/step-certificates-1.26.0/step-certificates-1.26.0.tgz
     version: 1.26.0
-generated: "2024-04-15T04:12:55.537483405Z"
+generated: "2024-06-25T16:34:06.815449687Z"
