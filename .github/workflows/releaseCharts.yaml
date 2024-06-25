@@ -47,9 +47,12 @@ jobs:
           skip_existing: false
             
       - name: Install chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@main
         with:
-          install_only: true
+          skip_packaging: true
+          skip_upload: true
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         
       - name: Update GitHub chart index
         run: |
@@ -65,7 +68,7 @@ jobs:
           echo "$owner"
           echo "$repo"
           
-          cr index -o "$owner" -r "$repo" --push --pages-branch "$pages_branch" --token '${{ secrets.GITHUB_TOKEN }}'
+          cr index -o "$owner" -r "$repo" --push --pages-branch "$pages_branch" --token '${{ secrets.GITHUB_TOKEN }}' --index-path . --charts-repo 
           
       - name: send message
         uses: appleboy/discord-action@master
