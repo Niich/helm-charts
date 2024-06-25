@@ -1,20 +1,13 @@
 
 # format 
 
-# apps: 
-#   <appname>:
-#     secretName: optional-overide-name
-#     values: # this is what is used to create the secret
-#       some-item: 
-#         some-other-item: "new-value"
-
 apps: 
   bind9: 
     values:
       mount_configuration_from_secret:
         enabled: true
         secretName: dns-zone-base
-  bind10: 
+  external-dns: 
     values:
       mount_configuration_from_secret:
         enabled: false
