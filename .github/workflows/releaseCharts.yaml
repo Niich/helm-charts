@@ -46,17 +46,18 @@ jobs:
           # tag_name_pattern: "{chartName}-chart"
           skip_existing: false
             
-      - name: Install classic chart-releaser
+      - name: Install chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
           install_only: true
         
-      - name: Update charts index
+      - name: Update GitHub chart index
         run: |
+          set -eo 
           owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
           repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
           pages_branch="gh-pages"
-          cr index -o "$owner" -r "$repo" --push --pages-branch "$pages_branch"
+          cr index -o "$owner" -r "$repo" --push --pages-branch "$pages_branch" --token '${{ secrets.GITHUB_TOKEN }}'
           
       - name: send message
         uses: appleboy/discord-action@master
